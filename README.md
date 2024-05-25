@@ -1,5 +1,5 @@
 # gowin_scope
-Simple gowin fpga oscilloscope
+Simple gowin fpga 100MSps oscilloscope
 
 ![Alt text](gowin_scope.jpg?raw=true "Title")
 
