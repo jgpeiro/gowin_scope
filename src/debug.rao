@@ -1,0 +1,108 @@
+<?xml version="1" encoding="UTF-8"?>
+<GAO_CONFIG>
+    <Version>3.0</Version>
+    <Mode>Lite</Mode>
+    <AoCore_Lite index="0" sample_clock="pll_clk2" trig_type="0" capture_amount="8192" implemention="0" input_register_enabled="0" capture_init_data_enabled="0" module_name="Top">
+        <SignalList>
+            <Signal capture_enable="true">pll_clk</Signal>
+            <Bus capture_enable="true" name="adc_data[7:0]">
+                <Signal>adc_data[7]</Signal>
+                <Signal>adc_data[6]</Signal>
+                <Signal>adc_data[5]</Signal>
+                <Signal>adc_data[4]</Signal>
+                <Signal>adc_data[3]</Signal>
+                <Signal>adc_data[2]</Signal>
+                <Signal>adc_data[1]</Signal>
+                <Signal>adc_data[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="state[3:0]">
+                <Signal>state[3]</Signal>
+                <Signal>state[2]</Signal>
+                <Signal>state[1]</Signal>
+                <Signal>state[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="adc_addr[15:0]">
+                <Signal>adc_addr[15]</Signal>
+                <Signal>adc_addr[14]</Signal>
+                <Signal>adc_addr[13]</Signal>
+                <Signal>adc_addr[12]</Signal>
+                <Signal>adc_addr[11]</Signal>
+                <Signal>adc_addr[10]</Signal>
+                <Signal>adc_addr[9]</Signal>
+                <Signal>adc_addr[8]</Signal>
+                <Signal>adc_addr[7]</Signal>
+                <Signal>adc_addr[6]</Signal>
+                <Signal>adc_addr[5]</Signal>
+                <Signal>adc_addr[4]</Signal>
+                <Signal>adc_addr[3]</Signal>
+                <Signal>adc_addr[2]</Signal>
+                <Signal>adc_addr[1]</Signal>
+                <Signal>adc_addr[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="adc_addr_bck0[15:0]">
+                <Signal>adc_addr_bck0[15]</Signal>
+                <Signal>adc_addr_bck0[14]</Signal>
+                <Signal>adc_addr_bck0[13]</Signal>
+                <Signal>adc_addr_bck0[12]</Signal>
+                <Signal>adc_addr_bck0[11]</Signal>
+                <Signal>adc_addr_bck0[10]</Signal>
+                <Signal>adc_addr_bck0[9]</Signal>
+                <Signal>adc_addr_bck0[8]</Signal>
+                <Signal>adc_addr_bck0[7]</Signal>
+                <Signal>adc_addr_bck0[6]</Signal>
+                <Signal>adc_addr_bck0[5]</Signal>
+                <Signal>adc_addr_bck0[4]</Signal>
+                <Signal>adc_addr_bck0[3]</Signal>
+                <Signal>adc_addr_bck0[2]</Signal>
+                <Signal>adc_addr_bck0[1]</Signal>
+                <Signal>adc_addr_bck0[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="adc_addr_bck1[15:0]">
+                <Signal>adc_addr_bck1[15]</Signal>
+                <Signal>adc_addr_bck1[14]</Signal>
+                <Signal>adc_addr_bck1[13]</Signal>
+                <Signal>adc_addr_bck1[12]</Signal>
+                <Signal>adc_addr_bck1[11]</Signal>
+                <Signal>adc_addr_bck1[10]</Signal>
+                <Signal>adc_addr_bck1[9]</Signal>
+                <Signal>adc_addr_bck1[8]</Signal>
+                <Signal>adc_addr_bck1[7]</Signal>
+                <Signal>adc_addr_bck1[6]</Signal>
+                <Signal>adc_addr_bck1[5]</Signal>
+                <Signal>adc_addr_bck1[4]</Signal>
+                <Signal>adc_addr_bck1[3]</Signal>
+                <Signal>adc_addr_bck1[2]</Signal>
+                <Signal>adc_addr_bck1[1]</Signal>
+                <Signal>adc_addr_bck1[0]</Signal>
+            </Bus>
+            <Bus capture_enable="true" name="x[15:0]">
+                <Signal>x[15]</Signal>
+                <Signal>x[14]</Signal>
+                <Signal>x[13]</Signal>
+                <Signal>x[12]</Signal>
+                <Signal>x[11]</Signal>
+                <Signal>x[10]</Signal>
+                <Signal>x[9]</Signal>
+                <Signal>x[8]</Signal>
+                <Signal>x[7]</Signal>
+                <Signal>x[6]</Signal>
+                <Signal>x[5]</Signal>
+                <Signal>x[4]</Signal>
+                <Signal>x[3]</Signal>
+                <Signal>x[2]</Signal>
+                <Signal>x[1]</Signal>
+                <Signal>x[0]</Signal>
+            </Bus>
+            <Signal capture_enable="true">lcd_clk</Signal>
+            <Signal capture_enable="true">single</Signal>
+            <Signal capture_enable="true">start</Signal>
+            <Signal capture_enable="true">stop</Signal>
+            <Signal capture_enable="true">busy</Signal>
+            <Signal capture_enable="true">done</Signal>
+            <Signal capture_enable="true">start2</Signal>
+            <Signal capture_enable="true">ram_sel</Signal>
+            <Signal capture_enable="true">LCD_DE</Signal>
+        </SignalList>
+    </AoCore_Lite>
+    <GAO_ID>0000011100001011</GAO_ID>
+</GAO_CONFIG>
