@@ -14,6 +14,7 @@
         <File path="src/top.v" type="file.verilog" enable="1"/>
         <File path="src/vga.v" type="file.verilog" enable="1"/>
         <File path="src/pinout.cst" type="file.cst" enable="1"/>
+        <File path="src/timmings.sdc" type="file.sdc" enable="0"/>
         <File path="src/debug.rao" type="file.gao" enable="0"/>
     </FileList>
 </Project>

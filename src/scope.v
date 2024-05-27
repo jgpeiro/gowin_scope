@@ -9,20 +9,19 @@ module Scope(
     input [7:0] i_adc_data
 );
 
-parameter STATE_IDLE = 4'b0000;
-parameter STATE_PREV = 4'b0001;
-parameter STATE_TRIG = 4'b0010;
-parameter STATE_POST = 4'b0100;
-parameter STATE_DONE = 4'b1000;
+parameter STATE_IDLE = 8'b000001;
+parameter STATE_PREV = 8'b000010;
+parameter STATE_TRIG = 8'b000100;
+parameter STATE_TRIG2= 8'b001000;
+parameter STATE_POST = 8'b010000;
+parameter STATE_DONE = 8'b100000;
 
 parameter THRESHOLD = 136;
 parameter PREV_MAX = 512/2;
 parameter POST_MAX = 512/2;
 
-reg [3:0] state;
+reg [7:0] state;
 reg [15:0] cnt;
-reg [2:0] trig;
-//reg [7:0] adc_value;
 
 always @(posedge clk or posedge rst) begin
     if(rst) begin
@@ -30,35 +29,37 @@ always @(posedge clk or posedge rst) begin
         cnt <= 0;
         o_busy <= 0;
         o_done <= 0;
-        trig <= 0;
-        //o_run <= 0;
     end else begin
         case(state)
             STATE_IDLE: begin
                 cnt <= 0;
-                state <= (i_start == 1) ? STATE_PREV : STATE_IDLE;
-                trig <= 0;
                 o_done <= 0;
-//                o_run <= 0;
+                if(i_start == 1)
+                    state <= STATE_PREV;
             end
             STATE_PREV: begin
-                cnt <= cnt + 1'b1;
-                state <= (cnt >= PREV_MAX) ? STATE_TRIG : STATE_PREV;
-                trig <= 0;
                 o_busy <= 1;
-//                o_run <= 1;
+                cnt <= cnt + 1'b1;
+                if(cnt == PREV_MAX)
+                    state <= STATE_TRIG;
             end
             STATE_TRIG: begin
                 cnt <= 0;
-                state <= (trig == 2) ? STATE_POST : STATE_TRIG;
-                trig <= (trig==0)?((i_adc_data < THRESHOLD) ?1:0):((i_adc_data >= THRESHOLD)?2:1);
+                if(i_adc_data < THRESHOLD)
+                    state <= STATE_TRIG2;
+            end
+            STATE_TRIG2: begin
+                if(i_adc_data >= THRESHOLD)
+                    state <= STATE_POST;
             end
             STATE_POST: begin
                 cnt <= cnt + 1'b1;
-                state <= (cnt >= POST_MAX) ? STATE_DONE : STATE_POST;
+                if(cnt == POST_MAX)
+                    state <= STATE_DONE;
             end
             STATE_DONE: begin
-                state <= (i_stop == 1) ? STATE_IDLE : STATE_DONE;
+                if(i_stop == 1)
+                    state <= STATE_IDLE;
                 o_busy <= 0;
                 o_done <= 1;
             end

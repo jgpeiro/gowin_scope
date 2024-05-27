@@ -47,7 +47,7 @@ module Top(
 
     // Debug clock
     /*wire pll_clk2;
-    Div #( .CNT_MAX(2) ) divDbg (
+    Div #( .CNT_MAX(10) ) divDbg (
         .i_rst(rst),
         .i_clk(pll_clk2),
         .o_clk(pll_clk)
@@ -55,14 +55,14 @@ module Top(
 
     // LCD clock
     wire lcd_clk;
-    Div #( .CNT_MAX(4) ) div0 (
+    Div #( .CNT_MAX(6) ) div0 (
         .i_rst(rst),
-        .i_clk(pll_clk),
+        .i_clk(i_clk),
         .o_clk(lcd_clk)
     );
     
     // ADC clock
-    assign o_adc_clk = !pll_clk;
+    assign o_adc_clk = pll_clk;
     
     
     // Debounce buttons
@@ -105,6 +105,7 @@ module Top(
     // Scope
     wire start2;
     reg [7:0] adc_data;
+    reg [7:0] adc_data_tmp;
     Scope scope (
         .rst(rst),
         .clk(pll_clk),
@@ -126,12 +127,14 @@ module Top(
         if( rst ) begin
             state <= 0;
             adc_data <= 0;
+            adc_data_tmp <= 0;
             adc_addr <= 0;
             adc_addr_bck0 <= 0;
             adc_addr_bck1 <= 0;
             ram_sel <= 0;
         end else begin
-            adc_data <= i_adc_data;
+            adc_data_tmp <= i_adc_data;
+            adc_data <= adc_data_tmp;
             case(state)
                 0:begin
                     if( busy ) begin 
@@ -225,12 +228,15 @@ module Top(
         .o_y(wy)
     );
     
+    reg [15:0]intermediate_addr;
+    reg [15:0]adjusted_addr;
     reg [15:0]lcd_addr;
+
     reg [7:0] y0;
     reg [7:0] y1;
     reg [7:0] y_mn;
     reg [7:0] y_mx;
-    always @(negedge lcd_clk or posedge rst)
+    always @(posedge lcd_clk or posedge rst)
     begin
         if( rst ) begin
             y0 <= 0;
@@ -267,7 +273,20 @@ module Top(
         end else begin
             x <= wx;
             y <= wy;
-            lcd_addr <= (((ram_sel==1)?adc_addr_bck0:adc_addr_bck1) + SCREEN_WIDTH-x + 5)&(BUFFER_LEN-1);
+            //lcd_addr <= (((ram_sel==1)?adc_addr_bck0:adc_addr_bck1) + SCREEN_WIDTH-x + 5)&(BUFFER_LEN-1);
+            
+            //-- Step 1: Choose between adc_addr_bck0 and adc_addr_bck1 based on ram_sel
+            intermediate_addr <= (ram_sel == 1) ? adc_addr_bck0 : adc_addr_bck1;
+
+            //-- Step 2: Calculate the adjusted address by adding SCREEN_WIDTH, subtracting x, and adding 5
+            adjusted_addr <= intermediate_addr + SCREEN_WIDTH - x + 5;
+
+            //-- Step 3: Apply the BUFFER_LEN mask
+            lcd_addr <= adjusted_addr & (BUFFER_LEN - 1);
+
+
+
+
             LCD_HSYNC <= hsync;
             LCD_VSYNC <= vsync;
             LCD_DE <= de;
